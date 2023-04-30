@@ -14,10 +14,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`https://jsonplaceholder.typecode.com/users`);
+    return this.http.get<User[]>(`https://jsonplaceholder.typicode.com/users`);
   }
 
   getUser(userId: number): Observable<User> {
-    return this.http.get<User>(`https://jsonplaceholder.typecode.com/users/${userId.toString()}`)
+    return this.http.get<User>(`https://jsonplaceholder.typicode.com/users/${userId.toString()}`)
   }
 }

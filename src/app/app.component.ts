@@ -1,15 +1,42 @@
-import { HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angularhttp';
 
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.onGetUsers()
+    this.onGetUser(2)
+
+  }
+
+
+  onGetUsers(): void {
+    this.userService.getUsers().subscribe(
+      {
+        next: (response) => console.log(response),
+        error: (error: any) => console.log(error),
+        complete: () => console.log('Done getting users'),
+      }
+    )
+  }
+
+  onGetUser(id: number): void {
+    this.userService.getUser(id).subscribe(
+      {
+        next: (response) => console.log(response),
+        error: (error: any) => console.log(error),
+        complete: () => console.log(`Done getting user (id: ${id})`),
+      }
+    )
+  }
 
 
 
