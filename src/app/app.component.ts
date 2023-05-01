@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './service/user.service';
+import { User } from './interface/user';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +10,42 @@ import { UserService } from './service/user.service';
 export class AppComponent implements OnInit {
   title = 'angularhttp';
 
+  private user: User = {
+    'name': 'Michael Graham',
+    'username': 'Mike',
+    'email': 'Sincere@april.biz',
+    'address': {
+      'street': 'Kulas Light',
+      'suite': 'Apt. 556',
+      'city': 'Gwenborough',
+      'zipcode': '92998-3874',
+      'geo': {
+        'lat': '-37.3159',
+        'lng': '81.1496'
+      }
+    },
+    'phone': '1-770-736-8031 x56442',
+    'website': 'hildegard.org',
+    'company': {
+      'name': 'Romaguera-Crona',
+      'catchPhrase': 'Multi-layered client-server neural-net',
+      'bs': 'harness real-time e-markets'
+    }
+  }
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.onGetUsers()
-    this.onGetUser(2)
-
+    // this.onGetUser(2)
+    this.onCreateUser(this.user)
   }
 
 
   onGetUsers(): void {
     this.userService.getUsers().subscribe(
       {
-        next: (response) => console.log(response),
+        next: (response) => console.table(response),
         error: (error: any) => console.log(error),
         complete: () => console.log('Done getting users'),
       }
@@ -38,6 +62,15 @@ export class AppComponent implements OnInit {
     )
   }
 
+  onCreateUser(user: User) {
+    this.userService.createUser(user).subscribe(
+      {
+        next: (response) => console.log(response),
+        error: (error) => console.log(error),
+        complete: () => console.log(`Creation of user${user.id ? ` (id: ${user.id})` : ''} completed`)
+      }
+    )
+  }
 
 
 }
