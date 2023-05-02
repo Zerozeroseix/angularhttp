@@ -11,8 +11,9 @@ export class AppComponent implements OnInit {
   title = 'angularhttp';
 
   private user: User = {
-    'name': 'Michael Graham',
-    'username': 'Mike',
+    'id': 2,
+    'name': 'Magdalena Maria',
+    'username': 'Magda',
     'email': 'Sincere@april.biz',
     'address': {
       'street': 'Kulas Light',
@@ -27,10 +28,17 @@ export class AppComponent implements OnInit {
     'phone': '1-770-736-8031 x56442',
     'website': 'hildegard.org',
     'company': {
-      'name': 'Romaguera-Crona',
+      'name': 'Magdalenas',
       'catchPhrase': 'Multi-layered client-server neural-net',
       'bs': 'harness real-time e-markets'
     }
+  }
+
+  private userPayloadForPatch: any = {
+    'id': 15,
+    'name': 'Magdalena Maria',
+    'username': 'Magda',
+    'email': 'Sincere@april.biz',
   }
 
   public users!: User[]
@@ -38,9 +46,11 @@ export class AppComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    // this.onUpdateUser(this.user)
+    this.onPatchUser(this.userPayloadForPatch)
     this.onGetUsers()
     // this.onGetUser(2)
-    this.onCreateUser(this.user)
+    // this.onCreateUser(this.user)
   }
 
 
@@ -70,6 +80,26 @@ export class AppComponent implements OnInit {
         next: (response) => console.log(response),
         error: (error) => console.log(error),
         complete: () => console.log(`Creation of user${user.id ? ` (id: ${user.id})` : ''} completed`)
+      }
+    )
+  }
+
+  onUpdateUser(user: User) {
+    this.userService.updateUser(user).subscribe(
+      {
+        next: (response) => console.log(response),
+        error: (error) => console.log(error),
+        complete: () => console.log(`Update of user${user.id ? ` (id: ${user.id})` : ''} completed`)
+      }
+    )
+  }
+
+  onPatchUser(userDataToPatch: any) {
+    this.userService.patchUser(userDataToPatch).subscribe(
+      {
+        next: (response) => console.log(response),
+        error: (error) => console.log(error),
+        complete: () => console.log(`Done patching user${userDataToPatch.id ? ` (id: ${userDataToPatch.id})` : ''}`)
       }
     )
   }
