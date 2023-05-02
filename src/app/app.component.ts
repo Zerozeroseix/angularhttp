@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
     }
   }
 
+  public users!: User[]
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
   onGetUsers(): void {
     this.userService.getUsers().subscribe(
       {
-        next: (response) => console.table(response),
+        next: (response) => { console.table(response); this.users = response },
         error: (error: any) => console.log(error),
         complete: () => console.log('Done getting users'),
       }
