@@ -107,13 +107,8 @@ export class AppComponent implements OnInit {
 
   onDeleteUser(id: number) {
     this.userService.deleteUser(id).subscribe({
-      next: (response) => {
-        console.log(response)
-      },
-      error: (err) => {
-        console.log(err)
-
-      },
+      next: (response) => console.log('Response from delete: ', response),
+      error: (error) => console.log(error),
       complete: () => console.log(`Deletion of user (id: ${id}) executed`),
     }
     )
