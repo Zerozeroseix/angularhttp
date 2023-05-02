@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
     // this.onGetUser(2)
     // this.onCreateUser(this.user)
     this.onDeleteUser(3)
+    this.onTextFile()
   }
 
 
@@ -113,6 +114,15 @@ export class AppComponent implements OnInit {
     }
     )
   }
+
+  onTextFile(): void {
+    this.userService.getTextFile().subscribe({
+      next: (response) => console.log('Response from getFileText: ', response),
+      error: (error) => console.log(error),
+      complete: () => console.log('Done getting text file'),
+    })
+  }
+
 
 
 }
