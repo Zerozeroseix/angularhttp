@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
     this.onGetUsers()
     // this.onGetUser(2)
     // this.onCreateUser(this.user)
+    this.onDeleteUser(3)
   }
 
 
@@ -101,6 +102,20 @@ export class AppComponent implements OnInit {
         error: (error) => console.log(error),
         complete: () => console.log(`Done patching user${userDataToPatch.id ? ` (id: ${userDataToPatch.id})` : ''}`)
       }
+    )
+  }
+
+  onDeleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe({
+      next: (response) => {
+        console.log(response)
+      },
+      error: (err) => {
+        console.log(err)
+
+      },
+      complete: () => console.log(`Deletion of user (id: ${id}) executed`),
+    }
     )
   }
 

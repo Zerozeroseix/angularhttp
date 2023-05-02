@@ -34,4 +34,8 @@ export class UserService {
     return this.http.patch<User>(`${this.apiUrl}/users/${user.id}`, user)
   }
 
+  deleteUser(userId: number): Observable<User> {
+    return this.http.delete<User>(`${this.apiUrl}/users/${userId.toString()}`)
+  }
+
 }
