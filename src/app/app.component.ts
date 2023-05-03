@@ -32,7 +32,8 @@ export class AppComponent implements OnInit {
       'name': 'Magdalenas',
       'catchPhrase': 'Multi-layered client-server neural-net',
       'bs': 'harness real-time e-markets'
-    }
+    },
+    'isAdmin': false,
   }
 
   private userPayloadForPatch: any = {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 import { User } from '../interface/user';
 import { environment } from 'src/environments/environments';
@@ -34,7 +34,8 @@ export class UserService {
       // headers: myHeaders, params: myParams
     })
       .pipe(
-        tap(users => console.log(users))
+        // tap(users => console.log(users)),
+        map(users => users.map(user => ({ ...user, name: user.name?.toUpperCase(), isAdmin: user.id === 4 ? true : false })))
       );
   }
 
