@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, retry, tap } from 'rxjs';
 
 import { User } from '../interface/user';
 import { environment } from 'src/environments/environments';
@@ -29,21 +29,11 @@ export class UserService {
     //   fromString: 'testList=3&testList=Junior'
     // })
     // myParams = myParams.append('name', 'junior')
-
-
     return this.http.get<User[]>(`${this.apiUrl}/users`, {
       // headers: myHeaders, params: myParams
     })
       .pipe(
-        // tap(users => console.log(users)),
-        map(users => users.map(user => (
-          {
-            ...user,
-            image: `${this.defaultImage}/${user.username?.toLowerCase()}`,
-            name: user.name?.toUpperCase(),
-            isAdmin: user.id === 4 ? true : false,
-            searchKey: [user.name, user.username]
-          })))
+        retry(3),
       );
   }
 
@@ -81,3 +71,38 @@ export class UserService {
   }
 
 }
+
+
+
+//#region  funçom GETUSERS() sem retry
+// getUsers(): Observable<User[]> {
+//   // // https://angular.io/api/common/http/HttpHeaders
+//   // let myHeaders = new HttpHeaders({ 'myheader': ['headervalue01', 'headervalue02'] });
+//   // myHeaders = myHeaders.set('id', '1234')
+//   // myHeaders = myHeaders.append('id', '0000')
+
+//   // // https://angular.io/api/common/http/HttpParams
+//   // const theParams = { ['testList']: this.moreParams }
+//   // let myParams = new HttpParams({
+//   //   // fromObject: theParams,
+//   //   fromString: 'testList=3&testList=Junior'
+//   // })
+//   // myParams = myParams.append('name', 'junior')
+
+
+//   return this.http.get<User[]>(`${this.apiUrl}/users`, {
+//     // headers: myHeaders, params: myParams
+//   })
+//     .pipe(
+//       tap(users => console.log(users)),
+//       map(users => users.map(user => (
+//         {
+//           ...user,
+//           image: `${this.defaultImage}/${user.username?.toLowerCase()}`,
+//           name: user.name?.toUpperCase(),
+//           isAdmin: user.id === 4 ? true : false,
+//           searchKey: [user.name, user.username]
+//         })))
+//     );
+// }
+//#endregion  funçom GETUSERS() sem retry
