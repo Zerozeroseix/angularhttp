@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[] | any> {
+  getUsers(): Observable<User[]> {
     // // https://angular.io/api/common/http/HttpHeaders
     // let myHeaders = new HttpHeaders({ 'myheader': ['headervalue01', 'headervalue02'] });
     // myHeaders = myHeaders.set('id', '1234')
@@ -29,12 +29,22 @@ export class UserService {
     //   fromString: 'testList=3&testList=Junior'
     // })
     // myParams = myParams.append('name', 'junior')
-    return this.http.get<User[]>(`${this.apiUrl}/userssss`, {
+
+
+    return this.http.get<User[]>(`${this.apiUrl}/users`, {
       // headers: myHeaders, params: myParams
     })
       .pipe(
-      // retry(3),
-    );
+        tap(users => console.log(users)),
+        map(users => users.map(user => (
+          {
+            ...user,
+            image: `${this.defaultImage}/${user.username?.toLowerCase()}`,
+            name: user.name?.toUpperCase(),
+            isAdmin: user.id === 4 ? true : false,
+            searchKey: [user.name, user.username]
+          })))
+      );
   }
 
   getUser(userId: number): Observable<User> {
