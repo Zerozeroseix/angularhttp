@@ -1,22 +1,56 @@
-<h1 class="mt-0 mb-2 text-5xl font-medium leading-tight text-primary">USERS</h1>
+<div class="w-[95%] mx-auto ">
+  <div class="mb-5">
+    <h1 class="mt-0 mb-2 text-5xl font-medium leading-tight text-primary">USERS</h1>
+    <h2 class="text-sm ">
+      Users from <a class="no-underline" href="#!">https://jsonplaceholder.typicode.com/users</a>
+    </h2>
+  </div>
 
+  <div class="hidden overflow-auto rounded-lg shadow md:block">
+    <table class="w-full bg-white shadow-lg">
 
-<table class="bg-white shadow-lg">
-  <caption class="text-sm bg-red-200 caption-top">
-    Users from <a class="no-underline" href="#!">https://jsonplaceholder.typicode.com/users</a>
-  </caption>
-  <thead>
-    <tr>
-      <th class="px-8 py-4 text-left bg-blue-100 border">Name</th>
-      <th class="px-8 py-4 text-left bg-blue-100 border">Email</th>
-      <th class="px-8 py-4 text-left bg-blue-100 border">Company</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td class="px-8 py-4 border">{{user.name}}</td>
-      <td class="px-8 py-4 border">{{user.email}}</td>
-      <td class="px-8 py-4 border">{{user.company.name}}</td>
-    </tr>
-  </tbody>
-</table>
+      <thead class="border-b-2 border-gray-200 bg-gray-50">
+        <tr>
+          <th class="w-2 p-3 pr-1 text-sm font-semibold tracking-wide text-left">#</th>
+          <th class="w-6 p-3 text-sm font-semibold tracking-wide text-left">Username</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">Email</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">Phone</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">Website</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <tr class="even:bg-gray-50 odd:bg-white" *ngFor="let user of users">
+          <td class="w-2 p-3 pr-1 text-sm text-gray-700 whitespace-nowrap"><span
+              class="font-bold text-red-500">{{user.id}}</span>
+          </td>
+          <td class="w-6 p-3 text-sm text-gray-700 whitespace-nowrap">{{user.username}}</td>
+          <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{user.email}}</td>
+          <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{user.phone}}</td>
+          <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a
+              class="font-bold text-blue-500 hover:cursor-pointer hover:underline" href="#!">{{user.website}}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex-row md:hidden" *ngFor="let user of users">
+    <div class="p-4 bg-white rounded-lg shadow max-w-[300px] sm:space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-x-6">
+        <div class="flex space-x-2">
+          <div class="font-bold text-red-500">{{user.id}}</div>
+          <div class="text-base text-gray-500">{{user.username}}</div>
+        </div>
+        <div class="flex items-baseline gap-x-2">
+          <mat-icon class="!w-4 !h-4 text-base text-indigo-500" aria-hidden="false"
+            aria-label="email information">email_outline</mat-icon>
+          <span class="truncate">{{user.email}}</span>
+        </div>
+      </div>
+      <div class="flex items-baseline gap-x-1"><mat-icon class="!w-5 !h-5 text-base text-indigo-500" aria-hidden="false"
+          aria-label="email information">phone_iphone</mat-icon><span class="truncate">{{user.phone}}</span></div>
+      <div><a class="font-bold text-blue-500 hover:cursor-pointer hover:underline" href="#!">{{user.website}}</a>
+      </div>
+    </div>
+  </div>
+
+</div>
