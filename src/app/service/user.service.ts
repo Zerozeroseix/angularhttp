@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { User } from '../interface/user';
 import { environment } from 'src/environments/environments';
@@ -32,7 +32,10 @@ export class UserService {
 
     return this.http.get<User[]>(`${this.apiUrl}/users`, {
       // headers: myHeaders, params: myParams
-    });
+    })
+      .pipe(
+        tap(users => console.log(users))
+      );
   }
 
   getUser(userId: number): Observable<User> {
