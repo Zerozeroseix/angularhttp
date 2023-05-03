@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environments';
 export class UserService {
 
   private apiUrl = environment.apiUrl
+  readonly defaultImage = "https://robohash.org"
   readonly moreParams = ['test', 'test2']
 
   constructor(private http: HttpClient) { }
@@ -35,7 +36,7 @@ export class UserService {
     })
       .pipe(
         // tap(users => console.log(users)),
-        map(users => users.map(user => ({ ...user, name: user.name?.toUpperCase(), isAdmin: user.id === 4 ? true : false })))
+        map(users => users.map(user => ({ ...user, image: `${this.defaultImage}/${user.username?.toLowerCase()}`, name: user.name?.toUpperCase(), isAdmin: user.id === 4 ? true : false })))
       );
   }
 
