@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
   onGetUsers(): void {
     this.userService.getUsers().subscribe(
       {
-        next: (response) => { console.table(response); this.users = response },
+        next: (response) => { console.log(response); this.users = response },
         error: (error: any) => console.log(error),
         complete: () => console.log('Done getting users'),
       }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, map, retry, tap } from 'rxjs';
+import { Observable, catchError, map, of, retry, tap } from 'rxjs';
 
 import { User } from '../interface/user';
 import { environment } from 'src/environments/environments';
@@ -29,11 +29,14 @@ export class UserService {
     //   fromString: 'testList=3&testList=Junior'
     // })
     // myParams = myParams.append('name', 'junior')
-    return this.http.get<User[]>(`${this.apiUrl}/users`, {
+    return this.http.get<User[]>(`${this.apiUrl}/userssss`, {
       // headers: myHeaders, params: myParams
     })
       .pipe(
-        retry(3),
+        // retry(3),
+        catchError((error: any) => {
+          return of([]);
+        })
       );
   }
 
