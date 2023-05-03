@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map, of, retry, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, catchError, map, of, retry, tap, throwError } from 'rxjs';
 
 import { User } from '../interface/user';
 import { environment } from 'src/environments/environments';
@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<User[] | any> {
     // // https://angular.io/api/common/http/HttpHeaders
     // let myHeaders = new HttpHeaders({ 'myheader': ['headervalue01', 'headervalue02'] });
     // myHeaders = myHeaders.set('id', '1234')
@@ -33,11 +33,8 @@ export class UserService {
       // headers: myHeaders, params: myParams
     })
       .pipe(
-        // retry(3),
-        catchError((error: any) => {
-          return of([]);
-        })
-      );
+      // retry(3),
+    );
   }
 
   getUser(userId: number): Observable<User> {
@@ -72,6 +69,11 @@ export class UserService {
   getTextFile(): Observable<string> {
     return this.http.get('../../assets/text.txt', { responseType: 'text' })
   }
+
+  // Este código nom funciona: https://rxjs.dev/api/index/function/throwError#throwerror
+  // private handleError(error: HttpErrorResponse): Observable<never> {
+  //   if (error.status === 404) return throwError({ code: 404, message: "The server cannot find the requested resource." })
+  // }
 
 }
 
