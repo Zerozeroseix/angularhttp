@@ -36,12 +36,28 @@ export class UserService {
     })
       .pipe(
         // tap(users => console.log(users)),
-        map(users => users.map(user => ({ ...user, image: `${this.defaultImage}/${user.username?.toLowerCase()}`, name: user.name?.toUpperCase(), isAdmin: user.id === 4 ? true : false })))
+        map(users => users.map(user => (
+          {
+            ...user,
+            image: `${this.defaultImage}/${user.username?.toLowerCase()}`,
+            name: user.name?.toUpperCase(),
+            isAdmin: user.id === 4 ? true : false,
+            searchKey: [user.name, user.username]
+          })))
       );
   }
 
   getUser(userId: number): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/users/${userId.toString()}`)
+      .pipe(
+        map(user => {
+          return {
+            ...user,
+            isAdmin: true,
+            searchKey: [user.name, user.username]
+          }
+        })
+      )
   }
 
   createUser(user: User): Observable<User> {

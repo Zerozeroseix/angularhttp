@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
     // this.onUpdateUser(this.user)
     // this.onPatchUser(this.userPayloadForPatch)
     this.onGetUsers()
-    // this.onGetUser(2)
+    this.onGetUser(2)
     // this.onCreateUser(this.user)
     // this.onDeleteUser(3)
     // this.onTextFile()
